@@ -1,0 +1,79 @@
+{
+  "name": "wikipedia-anagrams-app",
+  "version": "0.0.0",
+  "description": "",
+  "author": {
+    "name": "Athan Reines",
+    "email": "kgryte@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "Athan Reines",
+      "email": "kgryte@gmail.com"
+    }
+  ],
+  "bin": {
+    "wikipedia-anagrams-app": "./bin/server.js"
+  },
+  "scripts": {
+    "start": "./bin/server.js | ./node_modules/.bin/bunyan",
+    "test": "make test",
+    "test-ui": "make test-ui",
+    "test-server": "make test-server",
+    "test-cov": "make test-cov",
+    "test-ui-cov": "make test-ui-cov",
+    "test-server-cov": "make test-server-cov",
+    "coveralls": "make coveralls"
+  },
+  "main": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kgryte/wikipedia-anagrams-app.git"
+  },
+  "keywords": [
+    "polymer",
+    "web component"
+  ],
+  "bugs": {
+    "url": "https://github.com/kgryte/wikipedia-anagrams-app/issues"
+  },
+  "dependencies": {
+    "body-parser": "^1.12.0",
+    "bootable": "^0.2.4",
+    "bunyan": "^1.3.4",
+    "compression": "^1.4.1",
+    "connect-middleware-monitor": "^1.0.3",
+    "express": "^4.12.2",
+    "monitor-plugin-os": "^1.0.0",
+    "monitor-plugin-process": "^1.0.0",
+    "node-uuid": "^1.4.3",
+    "pkginfo": "^0.3.0",
+    "response-time": "^2.3.0",
+    "topical": "^1.1.1",
+    "validate.io-number": "^1.0.3",
+    "validate.io-string-primitive": "^1.0.0",
+    "validate.io-string-primitive-array": "^1.0.0",
+    "wikipedia-anagrams": "0.0.1"
+  },
+  "devDependencies": {
+    "bower": "^1.3.12",
+    "browserify": "^9.0.3",
+    "chai": "2.x.x",
+    "coveralls": "^2.11.1",
+    "istanbul": "^0.3.5",
+    "jshint": "2.x.x",
+    "jshint-stylish": "^1.0.0",
+    "mocha": "2.x.x",
+    "proxyquire": "^1.4.0",
+    "vulcanize": "^0.7.9",
+    "wct-local": "^1.2.0",
+    "wct-sauce": "^1.2.0",
+    "web-component-tester": "^2.2.1"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ]
+}
