@@ -50,7 +50,7 @@ The application runs on port `7311`.
 Provides a RESTful endpoint for finding [anagrams](http://en.wikipedia.org/wiki/Anagram) in [Wikipedia](http://wikipedia.org) pages. The endpoint expects a JSON body having the following fields:
 
 *	__resources__: a `string array` of Wikipedia page titles and/or URLs.
-*	__lang__: [optional] a `string` specifying the default Wikipedia language. Default: `'en'`.
+*	__lang__: [*optional*] a `string` specifying the default Wikipedia language. Default: `'en'`.
 
 
 ``` javascript
@@ -74,9 +74,9 @@ The response body will be a JSON `string` of the form
 }
 ```
 
-where the object *keys* map to the original resource `string array`. If no anagrams are found for a particular Wikipedia page, the value will be `null`.
+where the object *keys* map to the original resource `string array`. If no anagrams are found for a particular Wikipedia page, the associated value will be `null`.
 
-The response includes one additional *key*: `__merged__`. The value associated with this *key* is the list of anagrams found across all resources.
+The response includes one additional *key*: `__merged__`. The value associated with this *key* is the list of anagrams found across all resources. For more details, see [compute-anagram-hash](https://github.com/compute-io/anagram-hash).
 
 
 
