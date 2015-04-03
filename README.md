@@ -3,7 +3,7 @@ Wikipedia Anagrams App
 
 [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
 
-> Provides a REST interface for finding anagrams in Wikipedia pages.
+> Provides a REST interface for finding [anagrams](http://en.wikipedia.org/wiki/Anagram) in [Wikipedia](http://wikipedia.org) pages.
 
 
 ## Installation
@@ -12,13 +12,11 @@ Wikipedia Anagrams App
 $ git clone https://github.com/kgryte/wikipedia-anagrams-app.git
 ```
 
-Before running the application, install development dependencies
+The application runs on [Node.js](https://nodejs.org/). Before running the application, install [dependencies](https://www.npmjs.org/) by executing the following command
 
 ``` bash
 $ make install
 ```
-
-which installs [node modules](https://www.npmjs.org/).
 
 
 
@@ -42,14 +40,88 @@ To view the application in your local web browser, navigate to
 http://127.0.0.1:7311
 ```
 
+The application runs on port `7311`.
+
+
+## Routes
+
+#### POST /anagrams
+
+Provides a RESTful endpoint for finding [anagrams](http://en.wikipedia.org/wiki/Anagram) in [Wikipedia](http://wikipedia.org) pages. The endpoint expects a JSON body having the following fields:
+
+*	__resources__: a `string array` of Wikipedia page titles and/or URLs.
+*	__lang__: [optional] a `string` specifying the default Wikipedia language. Default: `'en'`.
+
+
+``` javascript
+{
+	"resources": [
+		"<page title or url>",
+		"<page title or url>"
+	],
+	"lang": "es"
+}
+```
+
+The response body will be a JSON `string` of the form
+
+``` javascript
+{
+	"<page title or url>": [[],[],...],
+	"<page title or url>": [[],[],...],
+	...
+	"__merged__": [[],[],...]
+}
+```
+
+where the object *keys* map to the original resource `string array`. If no anagrams are found for a particular Wikipedia page, the value will be `null`.
+
+The response includes one additional *key*: `__merged__`. The value associated with this *key* is the list of anagrams found across all resources.
+
+
+
 
 
 ## Examples
+
+From the command-line,
 
 ``` bash
 $ curl -X POST -d '{"resources":["ballet","mathematics"]}' 'http://127.0.0.1:7311/anagrams' --header "Content-type:application/json"
 ```
 
+From another [Node](https://nodejs.org/) application,
+
+``` javascript
+var request = require( 'request' );
+
+var body = {
+	'resources': [
+		'ballet',
+		'http://en.wikipedia.org/wiki/mathematics'
+	]
+};
+
+request( 'http://127.0.0.1:7311/anagrams', {
+	'method': 'POST',
+	'json': body
+}, onAnagrams );
+
+// Response callback...
+function onAnagrams( error, response, body ) {
+	if ( error ) {
+		console.error( error );
+		return;
+	}
+	console.log( body );
+}
+```
+
+To run the example code from the top-level application directory,
+
+``` bash
+$ node ./examples/index.js
+```
 
 
 ## Tests

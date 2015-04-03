@@ -16,7 +16,7 @@
     "wikipedia-anagrams-app": "./bin/server | ./node_modules/.bin/bunyan"
   },
   "scripts": {
-  	"start": "node ./bin/server | ./node_modules/.bin/bunyan",
+    "start": "node ./bin/server | ./node_modules/.bin/bunyan",
     "test": "./node_modules/.bin/mocha",
     "test-cov": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --dir ./reports/coverage -- -R spec",
     "coveralls": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --dir ./reports/coveralls/coverage --report lcovonly -- -R spec && cat ./reports/coveralls/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./reports/coveralls"
@@ -27,11 +27,11 @@
     "url": "git://github.com/kgryte/wikipedia-anagrams-app.git"
   },
   "keywords": [
-  	"wikipedia",
-  	"anagrams",
-  	"server",
-  	"application",
-  	"app"
+    "wikipedia",
+    "anagrams",
+    "server",
+    "application",
+    "app"
   ],
   "bugs": {
     "url": "https://github.com/kgryte/wikipedia-anagrams-app/issues"
@@ -61,7 +61,8 @@
     "jshint": "2.x.x",
     "jshint-stylish": "^1.0.0",
     "mocha": "2.x.x",
-    "proxyquire": "^1.4.0"
+    "proxyquire": "^1.4.0",
+    "request": "^2.54.0"
   },
   "licenses": [
     {
