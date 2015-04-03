@@ -4,8 +4,6 @@
 Makefile
 README.md
 TODO.md
-.coveralls.yml
-wct.conf.js
 
 # Directories #
 ###############

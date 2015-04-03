@@ -1,26 +1,9 @@
 Wikipedia Anagrams App
 ===
 
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
+[![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
 
 > Provides a REST interface for finding anagrams in Wikipedia pages.
-
-
-1. [Overview](#overview)
-1. [Install](#installation)
-1. [Run](#run)
-1. [Tests](#tests)
-	*	[Unit](#unit)
-		-	[Server](#unit-server)
-	*	[Coverage](#coverage)
-		-	[Server](#coverage-server)
-1. [License](#license)
-
-
----
-## Overview
-
-
 
 
 ## Installation
@@ -32,7 +15,7 @@ $ git clone https://github.com/kgryte/wikipedia-anagrams-app.git
 Before running the application, install development dependencies
 
 ``` bash
-$ make install-node
+$ make install
 ```
 
 which installs [node modules](https://www.npmjs.org/).
@@ -50,7 +33,7 @@ $ npm start
 or, alternatively, from the top-level application directory
 
 ``` bash
-$ node ./bin/server.js
+$ node ./bin/server
 ```
 
 To view the application in your local web browser, navigate to
@@ -60,43 +43,42 @@ http://127.0.0.1:7311
 ```
 
 
----
+
 ## Examples
 
+``` bash
+$ curl -X POST -d '{"resources":["ballet","mathematics"]}' 'http://127.0.0.1:7311/anagrams' --header "Content-type:application/json"
+```
 
 
 
----
 ## Tests
 
 ### Unit
 
-<a name="unit-server"></a>
-#### Server
-
-Server-side unit tests use the [Mocha](http://mochajs.org) test framework with [Chai](http://chaijs.com) assertions. To run the tests, execute the following command from the top-level application directory:
+Unit tests use the [Mocha](http://mochajs.org/) test framework with [Chai](http://chaijs.com) assertions. To run the tests, execute the following command in the top-level application directory:
 
 ``` bash
-$ make test-server
+$ make test
 ```
+
+All new feature development should have corresponding unit tests to validate correct functionality.
 
 
 ### Test Coverage
 
-<a name="coverage-server"></a>
-#### Server
-
-To generate a test coverage report exclusively for server-side tests,
+This repository uses [Istanbul](https://github.com/gotwarlost/istanbul) as its code coverage tool. To generate a test coverage report, execute the following command in the top-level application directory:
 
 ``` bash
-$ make test-server-cov
+$ make test-cov
 ```
 
-Istanbul creates a `./reports/coverage/server` directory. To access an HTML version of the report,
+Istanbul creates a `./reports/coverage` directory. To access an HTML version of the report,
 
 ``` bash
-$ make view-server-cov
+$ make view-cov
 ```
+
 
 
 ---
@@ -109,12 +91,6 @@ $ make view-server-cov
 
 Copyright &copy; 2015. Athan Reines.
 
-
-[screenshot-image]: https://github.com/kgryte/wikipedia-anagrams-app/.png
-[screenshot-url]: https://github.com/kgryte/wikipedia-anagrams-app
-
-[npm-image]: http://img.shields.io/npm/v/.svg
-[npm-url]: https://npmjs.org/package/
 
 [travis-image]: http://img.shields.io/travis/kgryte/wikipedia-anagrams-app/master.svg
 [travis-url]: https://travis-ci.org/kgryte/wikipedia-anagrams-app

@@ -28,20 +28,13 @@
 
 'use strict';
 
-// MODULES //
-
-var path = require( 'path' );
-
-
 // MIDDLEWARE //
 
-var express = require( 'express' ),
-	compression = require( 'compression' ),
+var compression = require( 'compression' ),
 	responseTime = require( 'response-time' ),
 	start = require( './start' ),
 	finish = require( './finish' ),
-	onError = require( './error' ),
-	onPublic = express.static( path.resolve( __dirname, '../../public' ) );
+	onError = require( './error' );
 
 
 // REQUEST HANDLERS //
@@ -77,9 +70,6 @@ function middleware( next ) {
 
 	// Compress any requests and responses:
 	app.use( compression() );
-
-	// Specify the location of static application files:
-	app.use( onPublic );
 
 	// Perform initial start tasks:
 	app.use( start );
