@@ -10,7 +10,8 @@ var body = {
 	'resources': [
 		'ballet',
 		'http://en.wikipedia.org/wiki/mathematics'
-	]
+	],
+	'lang': 'es'
 };
 
 request( 'http://127.0.0.1:7311/anagrams', {

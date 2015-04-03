@@ -44,9 +44,14 @@ var getAnagrams = require( 'wikipedia-anagrams' );
 * @param {Function} next - callback to invoke after finding anagrams
 */
 function anagrams( request, response, next ) {
-	var rsrc = request.body.resources;
+	var rsrc = request.body.resources,
+		opts = {};
 
-	getAnagrams( rsrc, onAnagrams );
+	if ( request.body.hasOwnProperty( 'lang' ) ) {
+		opts.lang = request.body.lang;
+	}
+
+	getAnagrams( rsrc, opts, onAnagrams );
 
 	function onAnagrams( error, hashes ) {
 		var blob,

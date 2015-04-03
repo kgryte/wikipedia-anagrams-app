@@ -45,12 +45,21 @@ var isString = require( 'validate.io-string-primitive' ),
 * @param {Function} next - callback to invoke after validating
 */
 function validate( request, response, next ) {
-	var query = request.body,
+	var body = request.body,
 		msg,
 		error;
 
-	if ( !isString( query.resources ) && !isStringArray( query.resources ) ) {
-		msg = 'Invalid query parameter. `resources` should either be a string or a string array. Value: `' + query.resources + '`.';
+	if ( !isString( body.resources ) && !isStringArray( body.resources ) ) {
+		msg = 'Invalid body parameter. `resources` should either be a string or a string array. Value: `' + body.resources + '`.';
+		error = {
+			'status': 400,
+			'message': msg
+		};
+		next( error );
+		return;
+	}
+	if ( body.hasOwnProperty( 'lang' ) && !isString( body.lang ) ) {
+		msg = 'Invalid body parameter. `lang` should be a string. Value: `' + body.lang + '`.';
 		error = {
 			'status': 400,
 			'message': msg
