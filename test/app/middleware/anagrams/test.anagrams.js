@@ -32,8 +32,7 @@ describe( 'app/middleware/anagrams/anagrams', function tests() {
 	request = {
 		'body': {
 			'resources': [
-				'ballet',
-				'mathematics'
+				'ballet'
 			]
 		},
 		'locals': {}
@@ -42,6 +41,11 @@ describe( 'app/middleware/anagrams/anagrams', function tests() {
 	next = function(){};
 
 	beforeEach( function before() {
+		request.body = {
+			'resources': [
+				'ballet'
+			]
+		};
 		request.locals = {};
 	});
 
@@ -53,7 +57,9 @@ describe( 'app/middleware/anagrams/anagrams', function tests() {
 	});
 
 	it( 'should forward any errors', function test( done ) {
-		var anagrams = proxyquire( mpath, {
+		var anagrams, next;
+
+		anagrams = proxyquire( mpath, {
 			'wikipedia-anagrams': function getAnagrams( rsrc, opts, clbk ) {
 				clbk( new Error() );
 			}
@@ -70,17 +76,30 @@ describe( 'app/middleware/anagrams/anagrams', function tests() {
 		anagrams( request, response, next );
 	});
 
-	xit( 'should find anagrams in Wikipedia pages', function test( done ) {
-		var anagrams = proxyquire( mpath, {
-			'wikipedia-anagrams': function() {
+	it( 'should append an `anagrams` results object to the request locals object', function test( done ) {
+		var next = function next() {
+			expect( request.locals.anagrams ).to.be.an( 'object' );
+			done();
+		};
+		anagrams( request, response, next );
+	});
 
+	it( 'should use additional options', function test( done ) {
+		var anagrams;
+
+		anagrams = proxyquire( mpath, {
+			'wikipedia-anagrams': function getAnagrams( rsrc, opts, clbk ) {
+				assert.strictEqual( opts.lang, 'es' );
+				done();
 			}
 		});
+
+		request.body.lang = 'es';
 		anagrams( request, response, next );
 	});
 
 	it( 'should invoke a callback after finding anagrams', function test( done ) {
-		next = function next() {
+		var next = function next() {
 			assert.ok( true );
 			done();
 		};
