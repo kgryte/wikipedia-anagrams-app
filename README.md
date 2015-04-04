@@ -74,9 +74,9 @@ The response body will be a JSON `string` of the form
 }
 ```
 
-where the object *keys* map to the original resource `string array`. If no anagrams are found for a particular Wikipedia page, the associated value will be `null`.
+where the object *keys* map to the original resource `string array`. If no anagrams are found for a particular Wikipedia page, the associated value is `null`.
 
-The response includes one additional *key*: `__merged__`. The value associated with this *key* is the list of anagrams found across all resources. For more details, see [compute-anagram-hash](https://github.com/compute-io/anagram-hash).
+The response includes one additional *key*: `__merged__`. The value associated with this *key* is the list of anagrams found across all resources. For more details, see [compute-anagram-hash](https://github.com/compute-io/anagram-hash) and [wikipedia-anagrams](https://github.com/kgryte/wikipedia-anagrams).
 
 
 
@@ -107,7 +107,6 @@ request( 'http://127.0.0.1:7311/anagrams', {
 	'json': body
 }, onAnagrams );
 
-// Response callback...
 function onAnagrams( error, response, body ) {
 	if ( error ) {
 		console.error( error );
