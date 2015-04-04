@@ -13,7 +13,7 @@
     }
   ],
   "bin": {
-    "wikipedia-anagrams-app": "./bin/server | ./node_modules/.bin/bunyan"
+    "wikipedia-anagrams-app": "./bin/server"
   },
   "scripts": {
     "start": "node ./bin/server | ./node_modules/.bin/bunyan",
