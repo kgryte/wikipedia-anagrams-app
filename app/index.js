@@ -80,6 +80,8 @@ function boot( clbk ) {
 	// [0] Create the application...
 	var app = bootable( express() );
 
+	// TODO: create a configuration phase. Merge command-line with static. cmd line always overrules static. Add a cmds argument which is passed to config phase factory.
+
 	// [1] Bind application middleware...
 	app.phase( middleware );
 
