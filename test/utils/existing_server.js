@@ -23,12 +23,28 @@ function create( clbk ) {
 	var server = http.createServer();
 	server.on( 'error', onError );
 	server.listen( PORT, onListen );
+	return server;
+
+	/**
+	* FUNCTION: onError( error )
+	*	Callback invoked when a server errors.
+	*
+	* @private
+	* @param {Error} error - error object
+	*/
 	function onError( error ) {
 		if ( error.code === 'EADDRINUSE' ) {
 			console.error( 'Server to be tested is already running.' );
 		}
 		server.close();
 	}
+
+	/**
+	* FUNCTION: onListen()
+	*	Callback invoked when a server successfully begins listening for requests.
+	*
+	* @private
+	*/
 	function onListen() {
 		clbk();
 	}

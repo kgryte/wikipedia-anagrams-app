@@ -37,10 +37,10 @@ JSHINT_REPORTER ?= ./node_modules/jshint-stylish/stylish.js
 # FILES #
 
 # Source files:
-SOURCES ?= app/*.js app/**/*.js app/**/**/*.js app/**/**/**/*.js app/**/**/**/**/*.js src/*.js src/**/*.js
+SOURCES ?= app/*.js app/**/*.js app/**/**/*.js app/**/**/**/*.js app/**/**/**/**/*.js
 
 # Test files:
-TESTS ?= test/app/**/*.js test/app/**/**/*.js test/app/**/**/**/*.js test/app/**/**/**/**/*.js
+TESTS ?= test/app/*.js test/app/**/*.js test/app/**/**/*.js test/app/**/**/**/*.js test/app/**/**/**/**/*.js
 
 
 

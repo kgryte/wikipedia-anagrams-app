@@ -60,16 +60,6 @@ function onError( error ) {
 	return process.exit( -1 );
 } // end FUNCTION onError()
 
-/**
-* FUNCTION: onListen()
-*	Callback invoked once a server is listening and ready to handle requests.
-*
-* @private
-*/
-function onListen() {
-	logger.info( PROTOCOL.toUpperCase() + ' server initialized. Server is listening for requests on port: ' + PORT + '.' );
-} // end FUNCTION onListen()
-
 
 // APP //
 
@@ -105,14 +95,25 @@ function boot( clbk ) {
 	function onBoot( error ) {
 		if ( error ) {
 			logger.info({ 'error': error });
+			console.log( error );
 			return process.exit( -1 );
 		}
 		app.server.on( 'error', onError );
 		app.server.listen( PORT, onListen );
+	} // end FUNCTION onBoot()
+
+	/**
+	* FUNCTION: onListen()
+	*	Callback invoked once a server is listening and ready to handle requests.
+	*
+	* @private
+	*/
+	function onListen() {
+		logger.info( PROTOCOL.toUpperCase() + ' server initialized. Server is listening for requests on port: ' + PORT + '.' );
 		if ( clbk ) {
 			clbk();
 		}
-	} // end FUNCTION onBoot()
+	} // end FUNCTION onListen()
 } // end FUNCTION boot()
 
 
