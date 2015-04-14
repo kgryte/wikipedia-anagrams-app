@@ -37,31 +37,37 @@ var express = require( 'express' ),
 	server = require( './server' );
 
 
-// VARIABLES //
-
-var PROTOCOL = 'http',
-	PORT = 7311;
-
-
 // FUNCTIONS //
 
 /**
-* FUNCTION: onError( error )
-*	Server error event handler.
+* FUNCTIONS: onBoot( clbk )
+*	Returns a callback to be invoked after boot completion.
 *
 * @private
-* @param {Error} error - server error
+* @param {Function} [clbk] - optional callback
 */
-function onError( error ) {
-	if ( error.code === 'EADDRINUSE' ) {
-		logger.info( 'Server address already in use.' );
-	}
-	logger.info({ 'error': error });
-	return process.exit( -1 );
-} // end FUNCTION onError()
+function onBoot( clbk ) {
+	/**
+	* FUNCTION: onBoot( [error] )
+	*	Callback invoked after application boot sequence completion.
+	*
+	* @private
+	* @param {Error} [error] - error object
+	*/
+	return function onBoot( error ) {
+		if ( error ) {
+			logger.info({ 'error': error });
+			console.log( error );
+			return process.exit( -1 );
+		}
+		if ( clbk ) {
+			clbk();
+		}
+	}; // end FUNCTION onBoot()
+} // end FUNCTION onBoot()
 
 
-// APP //
+// BOOT //
 
 /**
 * FUNCTION: boot( [clbk] )
@@ -81,39 +87,9 @@ function boot( clbk ) {
 	app.phase( server );
 
 	// [3] Boot the application...
-	app.boot( onBoot );
+	app.boot( onBoot( clbk ) );
 
 	return app;
-
-	/**
-	* FUNCTION: onBoot( [error] )
-	*	Callback invoked after application boot sequence completion.
-	*
-	* @private
-	* @param {Error} [error] - error object
-	*/
-	function onBoot( error ) {
-		if ( error ) {
-			logger.info({ 'error': error });
-			console.log( error );
-			return process.exit( -1 );
-		}
-		app.server.on( 'error', onError );
-		app.server.listen( PORT, onListen );
-	} // end FUNCTION onBoot()
-
-	/**
-	* FUNCTION: onListen()
-	*	Callback invoked once a server is listening and ready to handle requests.
-	*
-	* @private
-	*/
-	function onListen() {
-		logger.info( PROTOCOL.toUpperCase() + ' server initialized. Server is listening for requests on port: ' + PORT + '.' );
-		if ( clbk ) {
-			clbk();
-		}
-	} // end FUNCTION onListen()
 } // end FUNCTION boot()
 
 
