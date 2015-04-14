@@ -81,6 +81,7 @@ describe( 'app/middleware/anagrams/anagrams', function tests() {
 			expect( request.locals.anagrams ).to.be.an( 'object' );
 			done();
 		};
+		this.timeout( 10000 );
 		anagrams( request, response, next );
 	});
 
@@ -103,6 +104,7 @@ describe( 'app/middleware/anagrams/anagrams', function tests() {
 			assert.ok( true );
 			done();
 		};
+		this.timeout( 10000 );
 		anagrams( request, response, next );
 	});
 

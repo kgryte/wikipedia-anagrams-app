@@ -40,7 +40,7 @@ var express = require( 'express' ),
 // FUNCTIONS //
 
 /**
-* FUNCTIONS: onBoot( clbk )
+* FUNCTIONS: onBoot( [clbk] )
 *	Returns a callback to be invoked after boot completion.
 *
 * @private
