@@ -1,7 +1,7 @@
 /* global require, describe, it */
 'use strict';
 
-var mpath = './../../../app/node_modules/server';
+var mpath = './../../../app/server';
 
 // MODULES //
 

@@ -32,9 +32,9 @@
 
 var express = require( 'express' ),
 	bootable = require( 'bootable' ),
-	server = require( 'server' ),
 	logger = require( 'logger' ),
-	middleware = require( './middleware' );
+	middleware = require( './middleware' ),
+	server = require( './server' );
 
 
 // VARIABLES //
