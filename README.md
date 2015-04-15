@@ -20,7 +20,7 @@ $ make install
 
 
 
-## Run
+## Quick Start
 
 To start the application server
 
@@ -31,16 +31,19 @@ $ npm start
 or, alternatively, from the top-level application directory
 
 ``` bash
-$ node ./bin/server
+$ node ./bin/cli
 ```
+
+The default server `port` is `0`, in which case the port is [randomly assigned](https://nodejs.org/api/net.html#net_server_listen_port_host_backlog_callback) at run-time. To determine the run-time `port`, see the logs.
 
 To view the application in your local web browser, navigate to
 
 ```
-http://127.0.0.1:7311
+http://127.0.0.1:<port>
 ```
 
-The application runs on port `7311`.
+For advanced usage, see [below](#usage).
+
 
 
 ## Routes
@@ -87,7 +90,7 @@ The response includes one additional *key*: `__merged__`. The value associated w
 From the command-line,
 
 ``` bash
-$ curl -X POST -d '{"resources":["ballet","mathematics"]}' 'http://127.0.0.1:7311/anagrams' --header "Content-type:application/json"
+$ curl -X POST -d '{"resources":["ballet","mathematics"]}' 'http://127.0.0.1:<port>/anagrams' --header "Content-type:application/json"
 ```
 
 From another [Node](https://nodejs.org/) application,
@@ -102,7 +105,7 @@ var body = {
 	]
 };
 
-request( 'http://127.0.0.1:7311/anagrams', {
+request( 'http://127.0.0.1:<port>/anagrams', {
 	'method': 'POST',
 	'json': body
 }, onAnagrams );
@@ -121,6 +124,26 @@ To run the example code from the top-level application directory,
 ``` bash
 $ node ./examples/index.js
 ```
+
+
+
+## Usage
+
+``` bash
+Usage: wikipedia-anagrams-app [options]
+
+Options:
+
+  -h,    --help                Print this message.
+  -V,    --version             Print the package version.
+  -p,    --port                Specify the server port. Default: 0.
+         --ssl                 Enable HTTPS.
+         --key                 Path to SSL key file. Default: null.
+         --cert                Path to SSL certificate. Default: null.
+         --loglevel            Specify the log level. Default: info.
+```
+
+
 
 
 ## Tests

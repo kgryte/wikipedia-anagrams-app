@@ -30,14 +30,13 @@
 
 // MODULES //
 
-var http = require( 'http' ),
-	logger = require( 'logger' );
-
-
-// VARIABLES //
-
-var PROTOCOL = 'http',
-	PORT = 7311;
+var fs = require( 'fs' ),
+	path = require( 'path' ),
+	http = require( 'http' ),
+	https = require( 'https' ),
+	config = require( 'config' ),
+	logger = require( 'logger' ),
+	root = require( 'root' );
 
 
 // FUNCTIONS //
@@ -54,29 +53,56 @@ function onError( error ) {
 		logger.info( 'Server address already in use.' );
 	}
 	logger.info({ 'error': error });
-	return process.exit( -1 );
+	throw error;
 } // end FUNCTION onError()
 
 /**
-* FUNCTION: onListen( clbk )
-*	Wraps a callback in a closure and returns a function to be invoked once a server is ready to handle requests.
+* FUNCTION: httpServer( app )
+*	Creates an HTTP server.
 *
 * @private
-* @param {Function} clbk - enclosed callback
-* @returns {Function} callback
+* @param {Function} app - application
+* @returns {Server} HTTP server
 */
-function onListen( clbk ) {
-	/**
-	* FUNCTION: onListen()
-	*	Callback invoked once a server is listening and ready to handle requests.
-	*
-	* @private
-	*/
-	return function onListen() {
-		logger.info( PROTOCOL.toUpperCase() + ' server initialized. Server is listening for requests on port: ' + PORT + '.' );
-		clbk();
-	}; // end FUNCTION onListen()
-} // end FUNCTION onListern()
+function httpServer( app ) {
+	return http.createServer( app );
+} // end FUNCTION httpServer()
+
+/**
+* FUNCTION: httpsServer( app )
+*	Creates an HTTPS server.
+*
+* @private
+* @param {Function} app - application
+* @returns {Server} HTTPS server
+*/
+function httpsServer( app ) {
+	var ssl = config.get( 'ssl' ),
+		opts = {},
+		filepath,
+		err;
+
+	// TODO: generalize for additional HTTPS options...
+
+	// Get the private key for SSL...
+	filepath = path.resolve( root, ssl.key );
+	if ( !fs.existsSync( filepath ) ) {
+		err = new Error( 'Unable to find private key for SSL. Path: `' + ssl.key + '`.' );
+		return onError( err );
+	}
+	opts.key = fs.readFileSync( filepath, 'utf8' );
+
+	// Get the public certificate for SSL...
+	filepath = path.resolve( root, ssl.cert );
+	if ( !fs.existsSync( filepath ) ) {
+		err = new Error( 'Unable to find public certificate for SSL. Path: `' + ssl.cert + '`.' );
+		return onError( err );
+	}
+	opts.cert = fs.readFileSync( filepath, 'utf8' );
+
+	// Create the HTTPS server:
+	return https.createServer( opts, app );
+} // end FUNCTION httpServer()
 
 
 // SERVER //
@@ -89,10 +115,38 @@ function onListen( clbk ) {
 */
 function create( next ) {
 	/* jshint validthis:true */
-	var server = http.createServer( this );
+	var server,
+		port,
+		ssl;
+
+	// Get server configuration settings...
+	port = config.get( 'port' );
+	ssl = config.get( 'ssl.enabled' );
+
+	// Determine if we need to create a basic or secure HTTP server...
+	if ( ssl ) {
+		server = httpsServer( this );
+	} else {
+		server = httpServer( this );
+	}
 	server.on( 'error', onError );
-	server.listen( PORT, onListen( next ) );
+
+	// Begin listening for HTTP requests...
+	server.listen( port, onListen );
+
+	// Expose the server to the application:
 	this.server = server;
+
+	/**
+	* FUNCTION: onListen()
+	*	Callback invoked once a server is listening and ready to handle requests.
+	*
+	* @private
+	*/
+	function onListen() {
+		logger.info( ( ( ssl ) ? 'HTTPS' : 'HTTP' ) + ' server initialized. Server is listening for requests on port: ' + server.address().port + '.' );
+		next();
+	} // end FUNCTION onListen()
 } // end FUNCTION create()
 
 

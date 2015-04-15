@@ -32,7 +32,9 @@
 
 var express = require( 'express' ),
 	bootable = require( 'bootable' ),
+	config = require( 'config' ),
 	logger = require( 'logger' ),
+	isObject = require( 'validate.io-object' ),
 	middleware = require( './middleware' ),
 	server = require( './server' );
 
@@ -57,7 +59,6 @@ function onBoot( clbk ) {
 	return function onBoot( error ) {
 		if ( error ) {
 			logger.info({ 'error': error });
-			console.log( error );
 			return process.exit( -1 );
 		}
 		if ( clbk ) {
@@ -70,26 +71,65 @@ function onBoot( clbk ) {
 // BOOT //
 
 /**
-* FUNCTION: boot( [clbk] )
+* FUNCTION: boot( [options[, clbk]] )
 *	Defines the boot order for an express application. When invoked, creates and boots the application.
 *
+* @param {Object} [options] - boot options
 * @param {Function} [clbk] - callback to invoke after successfully booting the application
 * @returns {Function} express application
 */
-function boot( clbk ) {
-	// [0] Create the application...
-	var app = bootable( express() );
+function boot( options, clbk ) {
+	var nargs = arguments.length,
+		opts,
+		done,
+		app;
 
-	// TODO: create a configuration phase. Merge command-line with static. cmd line always overrules static. Add a cmds argument which is passed to config phase factory.
+	if ( nargs === 1 ) {
+		if ( typeof options === 'function' ) {
+			done = options;
+		}
+		else if ( isObject( options ) ) {
+			opts = options;
+		}
+		else {
+			throw new TypeError( 'boot()::invalid input argument. Must provide either an options object or a callback function. Value: `' + options + '`.' );
+		}
+	}
+	else if ( nargs > 1 ) {
+		if ( !isObject( options ) ) {
+			throw new TypeError( 'boot()::invalid input argument. Options argument must be an object. Value: `' + options + '`.' );
+		} else {
+			opts = options;
+		}
+		if ( typeof clbk !== 'function' ) {
+			throw new TypeError( 'boot()::invalid input argument. Callback must be a function. Value: `' + clbk + '`.' );
+		} else {
+			done = clbk;
+		}
+	}
+	else {
+		opts = {};
+	}
+	// [0] Update application settings...
+	config.merge( opts );
 
-	// [1] Bind application middleware...
+	// [1] Set the application log level:
+	logger.levels( 'main', config.get( 'logger.level' ) );
+
+	// [2] Log the current run-time environment:
+	logger.info( 'Environment configuration: %s.', config.get( 'env' ) );
+
+	// [3] Create the application...
+	app = bootable( express() );
+
+	// [4] Bind application middleware...
 	app.phase( middleware );
 
-	// [2] Create the server...
+	// [5] Create the server...
 	app.phase( server );
 
-	// [3] Boot the application...
-	app.boot( onBoot( clbk ) );
+	// [6] Boot the application...
+	app.boot( onBoot( done ) );
 
 	return app;
 } // end FUNCTION boot()
