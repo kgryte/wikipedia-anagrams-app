@@ -119,7 +119,13 @@ function onAnagrams( error, response, body ) {
 }
 ```
 
-To run the example code from the top-level application directory,
+To run the example code from the top-level application directory, in one terminal
+
+``` bash
+$ node ./bin/cli -p 7311
+```
+
+and in another terminal
 
 ``` bash
 $ node ./examples/index.js
