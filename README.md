@@ -89,6 +89,18 @@ where the object *keys* map to the original resource `string array`. If no anagr
 The response includes one additional *key*: `__merged__`. The value associated with this *key* is the list of anagrams found across all resources. For more details, see [compute-anagram-hash](https://github.com/compute-io/anagram-hash) and [wikipedia-anagrams](https://github.com/kgryte/wikipedia-anagrams).
 
 
+##### Error: 400
+
+If provided invalid body parameters, the response will contain the error `status` and an associated `message`
+
+``` javascript
+{
+	"status": 400,
+	"message": "..."
+}
+```
+
+
 ##### Examples
 
 From the command-line,
@@ -123,7 +135,7 @@ function onAnagrams( error, response, body ) {
 }
 ```
 
-A request will return a response body similar to the following
+A request will receive a response body similar to the following
 
 ``` javascript
 {
@@ -150,7 +162,7 @@ A request will return a response body similar to the following
 		["deals","leads"],
 		["setting","testing"]
 	],
-	"__merged__":[
+	"__merged__": [
 		["form","from"],
 		["own","now"],
 		["on","no"],
