@@ -194,7 +194,7 @@ Options:
 
   -h,    --help                Print this message.
   -V,    --version             Print the package version.
-  -p,    --port                Specify the server port. Default: 0.
+  -p,    --port [port]         Specify the server port. Default: 0.
          --ssl                 Enable HTTPS.
          --key [path]          Path to SSL key file. Default: null.
          --cert [path]         Path to SSL certificate. Default: null.
