@@ -91,7 +91,7 @@ The response includes one additional *key*: `__merged__`. The value associated w
 
 ##### Error: 400 (application/json)
 
-If provided invalid body parameters, the response will contain the error `status` and an associated `message`
+If a request contains invalid body parameters, an error response will contain the error `status` and an associated `message`
 
 ``` javascript
 {
