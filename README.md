@@ -89,7 +89,7 @@ where the object *keys* map to the original resource `string array`. If no anagr
 The response includes one additional *key*: `__merged__`. The value associated with this *key* is the list of anagrams found across all resources. For more details, see [compute-anagram-hash](https://github.com/compute-io/anagram-hash) and [wikipedia-anagrams](https://github.com/kgryte/wikipedia-anagrams).
 
 
-##### Error: 400
+##### Error: 400 (application/json)
 
 If provided invalid body parameters, the response will contain the error `status` and an associated `message`
 
