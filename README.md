@@ -48,13 +48,11 @@ For advanced usage, see [below](#usage).
 
 ## Routes
 
-### /anagrams
-
-#### [POST]
+#### [POST] /anagrams
 
 Provides a RESTful endpoint for finding [anagrams](http://en.wikipedia.org/wiki/Anagram) in [Wikipedia](http://wikipedia.org) pages.
 
-##### __Request__: (text/plain | application/json)
+##### Request: (text/plain | application/json)
 
 The endpoint expects a JSON body having the following fields:
 
@@ -72,7 +70,7 @@ The endpoint expects a JSON body having the following fields:
 }
 ```
 
-##### __Response__: 200 (application/json)
+##### Response: 200 (application/json)
 
 The response body will be a JSON `string` of the form
 
