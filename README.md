@@ -188,7 +188,12 @@ A request will receive a response body similar to the following
 
 #### GET /monitor
 
-Provides a RESTful endpoint for monitoring the server application. The response body will be a JSON `string` of the form
+Provides a RESTful endpoint for monitoring the server application.
+
+
+##### Response: 200 (application/json)
+
+The response body will be a JSON `string` of the form
 
 ``` javascript
 {
@@ -214,6 +219,125 @@ Provides a RESTful endpoint for monitoring the server application. The response 
 ```
 
 For more information about returned metrics, see [monitor-plugin-os](https://github.com/kgryte/monitor-plugin-os) and [monitor-plugin-process](https://github.com/kgryte/monitor-plugin-process).
+
+
+
+##### Examples
+
+From the command-line,
+
+``` bash
+$ curl 'http://127.0.0.1:<port>/monitor'
+```
+
+From another [Node](https://nodejs.org/) application,
+
+``` javascript
+var request = require( 'request' );
+
+request( 'http://127.0.0.1:<port>/monitor', {
+	'method': 'GET'
+}, onMetrics );
+
+function onMetrics( error, response, body ) {
+	if ( error ) {
+		console.error( error );
+		return;
+	}
+	console.log( body );
+}
+```
+
+A request will receive a response body similar to the following
+
+``` javascript
+{
+  "system": {
+    "uptime": 345806000,
+    "load": {
+      "1m": 1.578125,
+      "5m": 1.76123046875,
+      "15m": 1.7236328125
+    },
+    "mem": {
+      "memTotal": 8589934.592,
+      "memFree": 31227.904,
+      "ramUtilization": 0.9963645935058594
+    },
+    "cpu": [
+      {
+        "user": 24333080,
+        "nice": 0,
+        "system": 18208310,
+        "idle": 167442150,
+        "irq": 0
+      },
+      {
+        "user": 8365590,
+        "nice": 0,
+        "system": 4448480,
+        "idle": 197165460,
+        "irq": 0
+      },
+      {
+        "user": 24024830,
+        "nice": 0,
+        "system": 13111570,
+        "idle": 172843190,
+        "irq": 0
+      },
+      {
+        "user": 8527220,
+        "nice": 0,
+        "system": 4682440,
+        "idle": 196769810,
+        "irq": 0
+      },
+      {
+        "userAverage": 16312680,
+        "niceAverage": 0,
+        "systemAverage": 10112700,
+        "idleAverage": 183555152.5,
+        "irqAverage": 0
+      }
+    ]
+  },
+  "process": {
+    "pid": 13896,
+    "uptime": 22000,
+    "mem": {
+      "rss": 45531.136,
+      "heapFree": 15006.672,
+      "heapTotal": 33215.232,
+      "heapUtilization": 0.5481990913084696,
+      "memUsed": 45608.96,
+      "utilization": 0.005309581756591797
+    },
+    "lag": 1,
+    "cpu": {
+      "utilization": 0
+    }
+  },
+  "response": {
+    "count": 0,
+    "time": {
+      "count": 0,
+      "sum": 0,
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "variance": 0
+    },
+    "bytes": {
+      "sum": 0,
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "variance": 0
+    }
+  }
+}
+```
 
 
 
