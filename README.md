@@ -48,13 +48,14 @@ For advanced usage, see [below](#usage).
 
 ## Routes
 
-#### [POST] /anagrams
+#### POST /anagrams
 
 Provides a RESTful endpoint for finding [anagrams](http://en.wikipedia.org/wiki/Anagram) in [Wikipedia](http://wikipedia.org) pages.
 
+
 ##### Request: (text/plain | application/json)
 
-The endpoint expects a JSON body having the following fields:
+The request should include a JSON body having the following fields:
 
 *	__resources__: a `string array` of Wikipedia page titles and/or URLs.
 *	__lang__: [*optional*] a `string` specifying the default Wikipedia language. Default: `'en'`.
@@ -122,6 +123,55 @@ function onAnagrams( error, response, body ) {
 }
 ```
 
+A request will return a response body similar to the following
+
+``` javascript
+{
+	"ballet": [
+		["form","from"],
+		["own","now"],
+		["on","no"],
+		["are","era"],
+		["there","three"],
+		["large","regal"],
+		["theatre","theater"]
+	],
+	"mathematics": [
+		["from","form"],
+		["there","three"],
+		["predictions","description"],
+		["on","no"],
+		["at","ta"],
+		["own","now"],
+		["how","who"],
+		["items","times"],
+		["peirces","precise"],
+		["deal","lead"],
+		["deals","leads"],
+		["setting","testing"]
+	],
+	"__merged__":[
+		["form","from"],
+		["own","now"],
+		["on","no"],
+		["are","era"],
+		["there","three"],
+		["who","how"],
+		["large","regal"],
+		["precise","peirces"],
+		["neo","one"],
+		["departed","predated"],
+		["theatre","theater"],
+		["able","abel"],
+		["predictions","description"],
+		["at","ta"],
+		["items","times"],
+		["deal","lead"],
+		["deals","leads"],
+		["setting","testing"]
+	]
+}
+```
 
 
 #### GET /monitor
