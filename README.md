@@ -57,7 +57,7 @@ Provides a RESTful endpoint for finding [anagrams](http://en.wikipedia.org/wiki/
 
 The request should include a JSON body having the following fields:
 
-*	__resources__: a `string` specifying a Wikipedia page or URL or a `string array` of multiple Wikipedia page titles and/or URLs.
+*	__resources__: a `string` specifying a particular Wikipedia page/URL or a `string array` of multiple Wikipedia page titles and/or URLs.
 *	__lang__: [*optional*] a `string` specifying the default Wikipedia language. Default: `'en'`.
 
 
