@@ -196,9 +196,9 @@ Options:
   -V,    --version             Print the package version.
   -p,    --port                Specify the server port. Default: 0.
          --ssl                 Enable HTTPS.
-         --key                 Path to SSL key file. Default: null.
-         --cert                Path to SSL certificate. Default: null.
-         --loglevel            Specify the log level. Default: info.
+         --key [path]          Path to SSL key file. Default: null.
+         --cert [path]         Path to SSL certificate. Default: null.
+         --loglevel [level]    Specify the log level. Default: info.
 ```
 
 
