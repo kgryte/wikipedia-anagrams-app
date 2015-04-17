@@ -17,8 +17,8 @@
   },
   "scripts": {
     "start": "node ./bin/cli | ./node_modules/.bin/bunyan",
-    "test": "./node_modules/.bin/mocha",
-    "test-cov": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --dir ./reports/coverage -- -R spec",
+    "test": "./node_modules/.bin/mocha test/app/*.js test/app/**/*.js test/app/**/**/*.js test/app/**/**/**/*.js test/app/**/**/**/**/*.js",
+    "test-cov": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha test/app/*.js test/app/**/*.js test/app/**/**/*.js test/app/**/**/**/*.js test/app/**/**/**/**/*.js --dir ./reports/coverage -- -R spec",
     "coveralls": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha test/app/*.js test/app/**/*.js test/app/**/**/*.js test/app/**/**/**/*.js test/app/**/**/**/**/*.js --dir ./reports/coveralls/coverage --report lcovonly -- -R spec && cat ./reports/coveralls/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./reports/coveralls"
   },
   "main": "./app",
