@@ -34,7 +34,7 @@ or, alternatively, from the top-level application directory
 $ node ./bin/cli
 ```
 
-The default server `port` is `0`, in which case the port is [randomly assigned](https://nodejs.org/api/net.html#net_server_listen_port_host_backlog_callback) at run-time. To determine the run-time `port`, see the logs.
+The default server `port` is `0`, in which case the port is [randomly assigned](https://nodejs.org/api/net.html#net_server_listen_port_host_backlog_callback) at run-time. To determine the run-time `port`, see the log output.
 
 To view the application in your local web browser, navigate to
 
@@ -48,9 +48,15 @@ For advanced usage, see [below](#usage).
 
 ## Routes
 
-#### POST /anagrams
+### /anagrams
 
-Provides a RESTful endpoint for finding [anagrams](http://en.wikipedia.org/wiki/Anagram) in [Wikipedia](http://wikipedia.org) pages. The endpoint expects a JSON body having the following fields:
+#### [POST]
+
+Provides a RESTful endpoint for finding [anagrams](http://en.wikipedia.org/wiki/Anagram) in [Wikipedia](http://wikipedia.org) pages.
+
+##### __Request__: (text/plain | application/json)
+
+The endpoint expects a JSON body having the following fields:
 
 *	__resources__: a `string array` of Wikipedia page titles and/or URLs.
 *	__lang__: [*optional*] a `string` specifying the default Wikipedia language. Default: `'en'`.
@@ -66,6 +72,8 @@ Provides a RESTful endpoint for finding [anagrams](http://en.wikipedia.org/wiki/
 }
 ```
 
+##### __Response__: 200 (application/json)
+
 The response body will be a JSON `string` of the form
 
 ``` javascript
@@ -80,6 +88,41 @@ The response body will be a JSON `string` of the form
 where the object *keys* map to the original resource `string array`. If no anagrams are found for a particular Wikipedia page, the associated value is `null`.
 
 The response includes one additional *key*: `__merged__`. The value associated with this *key* is the list of anagrams found across all resources. For more details, see [compute-anagram-hash](https://github.com/compute-io/anagram-hash) and [wikipedia-anagrams](https://github.com/kgryte/wikipedia-anagrams).
+
+
+##### Examples
+
+From the command-line,
+
+``` bash
+$ curl -X POST -d '{"resources":["ballet","mathematics"]}' 'http://127.0.0.1:<port>/anagrams' --header "Content-type:application/json"
+```
+
+From another [Node](https://nodejs.org/) application,
+
+``` javascript
+var request = require( 'request' );
+
+var body = {
+	'resources': [
+		'ballet',
+		'http://en.wikipedia.org/wiki/mathematics'
+	]
+};
+
+request( 'http://127.0.0.1:<port>/anagrams', {
+	'method': 'POST',
+	'json': body
+}, onAnagrams );
+
+function onAnagrams( error, response, body ) {
+	if ( error ) {
+		console.error( error );
+		return;
+	}
+	console.log( body );
+}
+```
 
 
 
@@ -127,38 +170,6 @@ The endpoint expects a JSON body having the following fields:
 
 
 ## Examples
-
-From the command-line,
-
-``` bash
-$ curl -X POST -d '{"resources":["ballet","mathematics"]}' 'http://127.0.0.1:<port>/anagrams' --header "Content-type:application/json"
-```
-
-From another [Node](https://nodejs.org/) application,
-
-``` javascript
-var request = require( 'request' );
-
-var body = {
-	'resources': [
-		'ballet',
-		'http://en.wikipedia.org/wiki/mathematics'
-	]
-};
-
-request( 'http://127.0.0.1:<port>/anagrams', {
-	'method': 'POST',
-	'json': body
-}, onAnagrams );
-
-function onAnagrams( error, response, body ) {
-	if ( error ) {
-		console.error( error );
-		return;
-	}
-	console.log( body );
-}
-```
 
 To run the example code from the top-level application directory, in one terminal
 
