@@ -83,6 +83,47 @@ The response includes one additional *key*: `__merged__`. The value associated w
 
 
 
+#### GET /monitor
+
+Provides a RESTful endpoint for monitoring the server application. The response body will be a JSON `string` of the form
+
+``` javascript
+{
+  "system": {
+    "uptime": 165238000,
+    "load": {...},
+    "mem": {...},
+    "cpu": [...]
+  },
+  "process": {
+    "pid": 10793,
+    "uptime": 22000,
+    "mem": {...},
+    "lag": 1,
+    "cpu": {...}
+  },
+  "response": {
+    "count": 0,
+    "time": {...},
+    "bytes": {...}
+  }
+}
+```
+
+For more information about returned metrics, see [monitor-plugin-os](https://github.com/kgryte/monitor-plugin-os) and [monitor-plugin-process](https://github.com/kgryte/monitor-plugin-process).
+
+
+
+#### PUT /loglevel
+
+Provides a RESTful endpoint for setting the server application log level. This endpoint is useful when probing and/or debugging a live server.
+
+The endpoint expects a JSON body having the following fields:
+
+*	__level__: log level. The level may be specified as either a `string` or `number`. The `string` may be one of the following:
+	-	__trace__
+
+
 
 
 ## Examples

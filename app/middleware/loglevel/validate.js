@@ -59,7 +59,6 @@ function validLevel( value ) {
 	if ( typeof value === 'string' ) {
 		return LEVELS.indexOf( value ) !== -1;
 	}
-	// TODO: determine if integer check is needed
 	return isNumber( value );
 } // end FUNCTION validLevel()
 
