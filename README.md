@@ -53,7 +53,7 @@ For advanced usage, see [below](#usage).
 Provides a RESTful endpoint for finding [anagrams](http://en.wikipedia.org/wiki/Anagram) in [Wikipedia](http://wikipedia.org) pages.
 
 
-##### Request: (text/plain | application/json)
+##### Request: (application/json)
 
 The request should include a JSON body having the following fields:
 
@@ -198,20 +198,20 @@ The response body will be a JSON `string` of the form
 ``` javascript
 {
   "system": {
-    "uptime": 165238000,
+    "uptime": <number>,
     "load": {...},
     "mem": {...},
     "cpu": [...]
   },
   "process": {
-    "pid": 10793,
-    "uptime": 22000,
+    "pid": <number>,
+    "uptime": <number>,
     "mem": {...},
     "lag": 1,
     "cpu": {...}
   },
   "response": {
-    "count": 0,
+    "count": <number>,
     "time": {...},
     "bytes": {...}
   }
@@ -345,10 +345,83 @@ A request will receive a response body similar to the following
 
 Provides a RESTful endpoint for setting the server application log level. This endpoint is useful when probing and/or debugging a live server.
 
-The endpoint expects a JSON body having the following fields:
 
-*	__level__: log level. The level may be specified as either a `string` or `number`. The `string` may be one of the following:
-	-	__trace__
+##### Request: (application/json)
+
+The request should include a JSON body having the following fields:
+
+*	__level__: log level. The level may be specified as either a `string` or `number`. The `string` may be one of the following (see [node-bunyan](https://github.com/trentm/node-bunyan#levels); options listed with their numeric equivalents):
+	-	__fatal__ (60)
+	-	__error__ (50)
+	-	__warn__ (40)
+	-	__info__ (30)
+	-	__debug__ (20)
+	-	__trace__ (10)
+
+``` javascript
+{
+	"level": <string|number>
+}
+```
+
+
+##### Response: 200 (text/plain)
+
+The response body will be
+
+```
+OK
+```
+
+
+##### Error: 400 (application/json)
+
+If a request contains invalid body parameters, an error response will contain the error `status` and an associated `message`
+
+``` javascript
+{
+	"status": 400,
+	"message": "...'"
+}
+```
+
+
+##### Examples
+
+From the command-line,
+
+``` bash
+$ curl -X PUT -d '{"level":"info"}' 'http://127.0.0.1:<port>/loglevel' --header "Content-type:application/json"
+```
+
+From another [Node](https://nodejs.org/) application,
+
+``` javascript
+var request = require( 'request' );
+
+var body = {
+	'level': 'info'
+};
+
+request( 'http://127.0.0.1:<port>/loglevel', {
+	'method': 'PUT',
+	'json': body
+}, onResponse );
+
+function onResponse( error, response, body ) {
+	if ( error ) {
+		console.error( error );
+		return;
+	}
+	console.log( body );
+}
+```
+
+A successful request will receive the following response body
+
+```
+OK
+```
 
 
 
