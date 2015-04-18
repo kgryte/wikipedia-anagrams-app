@@ -48,7 +48,12 @@ or, alternatively, from the top-level application directory
 $ node ./bin/cli
 ```
 
-The default server `port` is `0`, in which case the port is [randomly assigned](https://nodejs.org/api/net.html#net_server_listen_port_host_backlog_callback) at run-time. To determine the run-time `port`, see the log output.
+The default server `port` is `0`, in which case the port is [randomly assigned](https://nodejs.org/api/net.html#net_server_listen_port_host_backlog_callback) at run-time. To determine the run-time `port`, see the log output; e.g.,
+
+``` bash
+[2015-04-18T00:08:30.331Z]  INFO: wikipedia-anagrams-app/13972 on local: Environment configuration: dev.
+[2015-04-18T00:08:30.340Z]  INFO: wikipedia-anagrams-app/13972 on local: HTTP server initialized. Server is listening for requests on port: 59333.
+```
 
 To view the application in your local web browser, navigate to
 
@@ -84,7 +89,7 @@ Options:
 <a name="anagrams-post"></a>
 #### POST /anagrams
 
-Provides a RESTful endpoint for finding [anagrams](http://en.wikipedia.org/wiki/Anagram) in [Wikipedia](http://wikipedia.org) pages.
+URI endpoint for finding [anagrams](http://en.wikipedia.org/wiki/Anagram) in [Wikipedia](http://wikipedia.org) pages.
 
 
 ##### Request: (application/json)
@@ -223,7 +228,7 @@ A request will receive a response body similar to the following
 ===
 #### GET /monitor
 
-Provides a RESTful endpoint for monitoring the server application.
+URI endpoint for monitoring the server application.
 
 
 ##### Response: 200 (application/json)
@@ -379,7 +384,7 @@ A request will receive a response body similar to the following
 ===
 #### PUT /loglevel
 
-Provides a RESTful endpoint for setting the server application log level. This endpoint is useful when probing and/or debugging a live server.
+URI endpoint for setting the server application log level. This endpoint is useful when probing and/or debugging a live server.
 
 
 ##### Request: (application/json)
