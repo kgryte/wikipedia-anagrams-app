@@ -6,6 +6,20 @@ Wikipedia Anagrams App
 > Provides a REST interface for finding [anagrams](http://en.wikipedia.org/wiki/Anagram) in [Wikipedia](http://wikipedia.org) pages.
 
 
+1. [Installation](#installation)
+2. [Quick Start](#quick-start)
+3. [Usage](#usage)
+4. [Routes](#routes)
+	-	[/anagrams](#anagrams-post)
+	-	[/monitor](#monitor-get)
+	-	[/loglevel](#loglevel-put)
+5. [Examples](#examples)
+6. [Tests](#tests)
+	-	[Unit](#unit)
+	-	[Coverage](#test-coverage)
+7. [License](license)
+
+
 ## Installation
 
 ``` bash
@@ -45,9 +59,29 @@ http://127.0.0.1:<port>
 For advanced usage, see [below](#usage).
 
 
+## Usage
+
+``` bash
+Usage: wikipedia-anagrams-app [options]
+
+Options:
+
+  -h,    --help                Print this message.
+  -V,    --version             Print the package version.
+  -p,    --port [port]         Specify the server port. Default: 0.
+         --ssl                 Enable HTTPS.
+         --key [path]          Path to SSL key file. Default: null.
+         --cert [path]         Path to SSL certificate. Default: null.
+         --loglevel [level]    Specify the log level. Default: info.
+```
+
+
+
+
 ---
 ## Routes
 
+<a name="anagrams-post"></a>
 #### POST /anagrams
 
 Provides a RESTful endpoint for finding [anagrams](http://en.wikipedia.org/wiki/Anagram) in [Wikipedia](http://wikipedia.org) pages.
@@ -185,6 +219,7 @@ A request will receive a response body similar to the following
 }
 ```
 
+<a name="monitor-get"></a>
 ===
 #### GET /monitor
 
@@ -340,6 +375,7 @@ A request will receive a response body similar to the following
 ```
 
 
+<a name="loglevel-put"></a>
 ===
 #### PUT /loglevel
 
@@ -438,24 +474,6 @@ and in another terminal
 
 ``` bash
 $ node ./examples/index.js
-```
-
-
-
-## Usage
-
-``` bash
-Usage: wikipedia-anagrams-app [options]
-
-Options:
-
-  -h,    --help                Print this message.
-  -V,    --version             Print the package version.
-  -p,    --port [port]         Specify the server port. Default: 0.
-         --ssl                 Enable HTTPS.
-         --key [path]          Path to SSL key file. Default: null.
-         --cert [path]         Path to SSL certificate. Default: null.
-         --loglevel [level]    Specify the log level. Default: info.
 ```
 
 
