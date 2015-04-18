@@ -1,7 +1,7 @@
 {
   "name": "wikipedia-anagrams-app",
   "version": "0.0.0",
-  "description": "Provides a REST interface for finding anagrams in Wikipedia pages.",
+  "description": "Provides a server-side web API for finding anagrams in Wikipedia pages.",
   "author": {
     "name": "Athan Reines",
     "email": "kgryte@gmail.com"
