@@ -45,7 +45,7 @@ http://127.0.0.1:<port>
 For advanced usage, see [below](#usage).
 
 
-
+---
 ## Routes
 
 #### POST /anagrams
@@ -185,7 +185,7 @@ A request will receive a response body similar to the following
 }
 ```
 
-
+===
 #### GET /monitor
 
 Provides a RESTful endpoint for monitoring the server application.
@@ -340,7 +340,7 @@ A request will receive a response body similar to the following
 ```
 
 
-
+===
 #### PUT /loglevel
 
 Provides a RESTful endpoint for setting the server application log level. This endpoint is useful when probing and/or debugging a live server.
@@ -350,13 +350,13 @@ Provides a RESTful endpoint for setting the server application log level. This e
 
 The request should include a JSON body having the following fields:
 
-*	__level__: log level. The level may be specified as either a `string` or `number`. The `string` may be one of the following (see [node-bunyan](https://github.com/trentm/node-bunyan#levels); options listed with their numeric equivalents):
-	-	__fatal__ (60)
-	-	__error__ (50)
-	-	__warn__ (40)
-	-	__info__ (30)
-	-	__debug__ (20)
-	-	__trace__ (10)
+*	__level__: log level. The level may be specified as either a `string` or `number`. The `string` may be one of the following (see [node-bunyan](https://github.com/trentm/node-bunyan#levels); `string` options listed along with their numeric equivalents):
+	-	(60) __fatal__
+	-	(50) __error__
+	-	(40) __warn__
+	-	(30) __info__
+	-	(20) __debug__
+	-	(10) __trace__
 
 ``` javascript
 {
@@ -425,7 +425,7 @@ OK
 
 
 
-
+---
 ## Examples
 
 To run the example code from the top-level application directory, in one terminal
