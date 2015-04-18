@@ -81,7 +81,7 @@ function middleware( next ) {
 
 	app.get( '/monitor', monitor );
 
-	app.post( '/logs', logs );
+	// app.post( '/logs', logs );
 
 	app.put( '/loglevel', loglevel );
 
