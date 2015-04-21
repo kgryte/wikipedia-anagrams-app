@@ -7,4 +7,6 @@ TODO
 4. 	auto open browser?
 	-	only if UI component
 5.  update generator
-6.  
+6.  authentication for `/logs` route
+	-	or more generally, ability to toggle authentication for all routes
+7. 	
