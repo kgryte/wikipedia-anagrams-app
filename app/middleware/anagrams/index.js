@@ -1,31 +1,3 @@
-/**
-*
-*	ROUTES: POST /anagrams
-*
-*
-*	DESCRIPTION:
-*		- Route for finding anagrams in Wikipedia pages.
-*
-*
-*	NOTES:
-*		[1]
-*
-*
-*	TODO:
-*		[1]
-*
-*
-*	LICENSE:
-*		MIT
-*
-*	Copyright (c) 2015. Athan Reines.
-*
-*
-*	AUTHOR:
-*		Athan Reines. kgryte@gmail.com. 2015.
-*
-*/
-
 'use strict';
 
 // MIDDLEWARE //

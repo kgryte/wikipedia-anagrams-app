@@ -1,30 +1,3 @@
-/**
-*
-*	VALIDATE
-*
-*
-*	DESCRIPTION:
-*		- Validates command-line arguments and returns validated application options.
-*
-*
-*	NOTES:
-*		[1]
-*
-*
-*	TODO:
-*		[1]
-*
-*
-*	LICENSE:
-*		MIT
-*
-*	Copyright (c) 2015. Athan Reines.
-*
-*
-*	AUTHOR:
-*		Athan Reines. kgryte@gmail.com. 2015.
-*
-*/
 'use strict';
 
 // VARIABLES //
