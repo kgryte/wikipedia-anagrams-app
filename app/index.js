@@ -59,6 +59,7 @@ function boot( options, clbk ) {
 	if ( nargs === 1 ) {
 		if ( typeof options === 'function' ) {
 			done = options;
+			opts = {};
 		}
 		else if ( isObject( options ) ) {
 			opts = options;

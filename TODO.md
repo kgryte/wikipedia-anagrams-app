@@ -1,11 +1,10 @@
 TODO
 ===
 
-1. 	include node-repl?
-	-	`-i` for interactivity
-2. 	
-3. 	
-4. 	cluster? reload/forever/watch?
-5. 	auto open browser?
-6.  update generator
-7.  
+1. 	cluster
+2.  forever
+3. 	watch/reload
+4. 	auto open browser?
+	-	only if UI component
+5.  update generator
+6.  
